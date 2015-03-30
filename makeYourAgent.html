@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Ai-project-vacuumenvironment : An environment to test a vacuum agent, created for a college course.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Make your Agent</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/DMIunipg/AI-Project-VacuumEnvironment">View on GitHub</a>
+
+          <h1 id="project_title">Make your Agent</h1>
+          <h2 id="project_tagline">A simple tutorial to help the making of your agent.</h2>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+Requirements</h1>
+
+<p><ul>
+<li>The python file of the agent must be in the <span style="font-weight: bold;">agents_dir</span></li>
+<li>You have to import the agents module: <pre>from . agents import *
+[...]</pre></li>
+<li>The agent class name of your agent must be <span style="font-weight: bold;">"agent_file_name" + "Class"</span></li>
+<li>The agent class must inerith <span style="font-weight: bold;">Agent</span><pre>class agent_file_nameClass(Agent):
+    def __init__(self):
+        Agent.__init__(self)
+        [...]</pre></li>
+<li>At the end of your init function you have to assign the attribut program with the function that update the status of tour agent<pre>class agent_file_nameClass(Agent):
+    def __init__(self):
+        Agent.__init__(self)
+
+        [...]
+
+        def program((status, bump)):
+            pass
+
+        self.progra = program</pre></li>
+</ul></p>
+
+<h2>Events and actions</h2>
+
+<p>Your agent will receive a status and a variable bump. The status can be <span style="font-weight: lighter;">"Dirty"</span> or <span style="font-weight: lighter;">"Clean"</span>. Bump instead can assume values <span style="font-weight: lighter;">"Bump"</span> and <span style="font-weight: lighter;">"None"</span>. These variables refer to the actual position of the agent, in case of bump the target position can't be reached and the agent will remain in the same cell.</p>
+
+<p>The possible action that an agent can do are:
+<ul>
+<li><span style="font-weight: lighter;">"GoNorth"</span></li>
+<li><span style="font-weight: lighter;">"GoSouth"</span></li>
+<li><span style="font-weight: lighter;">"GoWest"</span></li>
+<li><span style="font-weight: lighter;">"GoEast"</span></li>
+</ul>
+To do an action during the environment updates you have to return these actions (strings) in the program function.</p>
+
+
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Creative Common BY-NC-SA: Share Alike, Non Commercial, give Attribution for the credits to the original authors: <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">http://creativecommons.org/licenses/by-nc-sa/4.0/</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Ai-project-vacuumenvironment maintained by <a href="https://github.com/DMIunipg">DMIunipg</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
