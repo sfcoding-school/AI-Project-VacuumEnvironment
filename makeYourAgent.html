@@ -36,11 +36,11 @@ Requirements</h1>
 <li>The agent class name of your agent must be <span style="font-weight: bold;">"agent_file_name" + "Class"</span></li>
 <li>The agent class must inerith <span style="font-weight: bold;">Agent</span><pre>class agent_file_nameClass(Agent):
     def __init__(self):
-        Agent.__init__(self)
+        super(agent_file_nameClass, self).__init__()
         [...]</pre></li>
 <li>At the end of your init function you have to assign the attribut program with the function that update the status of tour agent<pre>class agent_file_nameClass(Agent):
     def __init__(self):
-        Agent.__init__(self)
+        super(agent_file_nameClass, self).__init__()
 
         [...]
 
@@ -60,6 +60,8 @@ Requirements</h1>
 <li><span style="font-weight: lighter;">"GoSouth"</span></li>
 <li><span style="font-weight: lighter;">"GoWest"</span></li>
 <li><span style="font-weight: lighter;">"GoEast"</span></li>
+<li><span style="font-weight: lighter;">"Suck"</span></li>
+<li><span style="font-weight: lighter;">"NoOp"</span></li>
 </ul>
 To do an action during the environment updates you have to return these actions (strings) in the program function.</p>
 
