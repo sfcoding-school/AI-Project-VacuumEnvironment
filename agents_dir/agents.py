@@ -35,11 +35,13 @@ EnvCanvas ## Canvas to display the environment of an EnvGUI
 #
 # Speed control in GUI does not have any effect -- fix it.
 
-from utils import *
 import random
 import copy
 
-#______________________________________________________________________________
+from aima.utils import *
+
+
+# ______________________________________________________________________________
 
 
 class Thing(object):
@@ -107,7 +109,7 @@ def TraceAgent(agent):
     agent.program = new_program
     return agent
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 
 
 def TableDrivenAgentProgram(table):
@@ -128,7 +130,7 @@ def RandomAgentProgram(actions):
     "An agent that chooses an action at random, ignoring all percepts."
     return lambda percept: random.choice(actions)
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 
 
 def SimpleReflexAgentProgram(rules, interpret_input):
@@ -158,7 +160,7 @@ def rule_match(state, rules):
         if rule.matches(state):
             return rule
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 
 loc_A, loc_B = (0, 0), (1, 0)  # The two locations for the Vacuum world
 
@@ -213,7 +215,7 @@ def ModelBasedVacuumAgent():
             return 'Left'
     return Agent(program)
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 
 
 class Environment(object):
@@ -436,7 +438,7 @@ class Obstacle(Thing):
 class Wall(Obstacle):
     pass
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Vacuum environment
 
 
@@ -570,7 +572,7 @@ class WumpusEnvironment(XYEnvironment):
     # Needs a lot of work ...
 
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 
 def compare_agents(EnvFactory, AgentFactories, n=10, steps=1000):
     """See how well each of several agents do in n instances of an environment.
@@ -591,7 +593,7 @@ def test_agent(AgentFactory, steps, envs):
         return agent.performance
     return mean(map(score, envs))
 
-#_________________________________________________________________________
+# _________________________________________________________________________
 
 __doc__ += """
 >>> a = ReflexVacuumAgent()

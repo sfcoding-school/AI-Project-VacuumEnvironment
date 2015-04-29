@@ -1,5 +1,4 @@
 """Provide some widely useful utilities. Safe for "from utils import *".
-
 """
 
 from __future__ import generators
@@ -18,7 +17,7 @@ You might find that the parts you care about still work in older
 Pythons or happen to work in newer ones, but you're on your own --
 edit utils.py if you want to try it."""
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Compatibility with Python 2.2, 2.3, and 2.4
 
 # The AIMA code was originally designed to run in Python 2.2 and up.
@@ -97,11 +96,11 @@ except NameError:
         """
         seq2 = copy.copy(seq)
         if key:
-            if cmp == None:
+            if cmp is None:
                 cmp = __builtins__.cmp
             seq2.sort(lambda x, y: cmp(key(x), key(y)))
         else:
-            if cmp == None:
+            if cmp is None:
                 seq2.sort()
             else:
                 seq2.sort(cmp)
@@ -238,7 +237,7 @@ except NameError:
             __ixor__ = symmetric_difference_update
 
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
 infinity = 1.0e400
 
@@ -301,7 +300,7 @@ def update(x, **entries):
         x.__dict__.update(entries)
     return x
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Functions on Sequences (mostly inspired by Common Lisp)
 # NOTE: Sequence functions (count_if, find_if, every, some) take function
 # argument first (like reduce, filter, and map).
@@ -396,7 +395,7 @@ def isin(elt, seq):
             return True
     return False
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Functions on sequences of numbers
 # NOTE: these take the sequence argument first, like min and max,
 # and like standard math notation: \sigma (i = 1..n) fn(i)
@@ -470,7 +469,7 @@ def argmax_list(seq, fn):
 def argmax_random_tie(seq, fn):
     "Return an element with highest fn(seq[i]) score; break ties at random."
     return argmin_random_tie(seq, lambda x: -fn(x))
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Statistical and mathematical functions
 
 
@@ -610,7 +609,7 @@ def clip(x, lowest, highest):
     """
     return max(lowest, min(x, highest))
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # OK, the following are not as widely useful utilities as some of the other
 # functions here, but they do show up wherever we have 2D grids: Wumpus and
 # Vacuum worlds, TicTacToe and Checkers, and markov decision Processes.
@@ -649,7 +648,7 @@ def vector_clip(vector, lowest, highest):
     """
     return type(vector)(map(clip, vector, lowest, highest))
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Misc Functions
 
 
@@ -687,7 +686,7 @@ def memoize(fn, slot=None):
                 return val
     else:
         def memoized_fn(*args):
-            if not memoized_fn.cache.has_key(args):
+            if not (args in memoized_fn):  # memoized_fn.cache.has_key(args):
                 memoized_fn.cache[args] = fn(*args)
             return memoized_fn.cache[args]
         memoized_fn.cache = {}
@@ -763,7 +762,7 @@ def unimplemented():
     "Use this as a stub for not-yet-implemented functions."
     raise NotImplementedError
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Queues: Stack, FIFOQueue, PriorityQueue
 
 
@@ -865,7 +864,7 @@ class PriorityQueue(Queue):
 # as Fig[3.1]
 Fig = {}
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 # Support for doctest
 
 
@@ -884,7 +883,7 @@ def random_tests(text):
     tests = re.findall(">>> (.*)", text)
     return '\n'.join(map(fixup, tests))
 
-#______________________________________________________________________________
+# ______________________________________________________________________________
 
 __doc__ += """
 >>> d = DefaultDict(0)

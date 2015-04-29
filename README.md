@@ -1,22 +1,54 @@
 AI-Project-VacuumEnvironment
 ============================
 
-An environment to test a vacuum agent, created for the university project of Prof. Milani's Artificial Intelligence course at Department ofMathematicasandComputer Science, University ofPerugia, and inspired from a problem posed by Stuart Russell and Peter Norvig in the book "Artificial Intelligence: A Modern Approach". 
+An environment to test a vacuum agent, created for the university project of Prof. Milani's Artificial Intelligence course at Department ofMathematicasandComputer Science, University of Perugia, and inspired from a problem posed by Stuart Russell and Peter Norvig in the book "Artificial Intelligence: A Modern Approach". 
 
 ## Dependencies
 
 You must have [kivy](http://kivy.org/#home) installed on your system.
 
-## Run the application
+[**Installation**](https://github.com/sfcoding-school/AIVacuum/wiki/Install-Kivy)
+
+## Run the application on Linux
 
 If you have installed all the dependencies, you can run the program with:
 ```bash
-python aima-ui.py
+python main.py
 ```
-For Windows and Mac you can follow the istructions here:
+or, if you want to start a specific agent in a specific map (very useful for test) you can run the program with:
+```bash
+python main.py ChosenAgent ChosenMap
+```
 
-* [Start Kivy on Windows](http://kivy.org/docs/installation/installation-windows.html#start-a-kivy-application)
-* [Start kivy on Mac](http://kivy.org/docs/installation/installation-macosx.html#start-any-kivy-application)
+## Creating your Agent
+
+First, create a file in agent_dir folder, inside you'll have to write this code 
+
+```python
+from . agents import *
+
+class yourAgentNameClass(Agent): # note that your agent name that must finish with "Class"
+
+    def __init__(self):
+        Agent.__init__(self)
+
+        def program((status, bump)):
+
+        	# this is the method that you need to implement
+
+        	# this method should return a string (like "NoOp" or "Suck"), 
+        	# in the case that you do not put a return, 
+        	# the program return "None" as default, and this makes you lose points
+
+        	# every time this method runs you have a pair (status, bump)
+			# status is a string that can be "Clean" or "Dirty", depends on the state of your 
+			# actual Agent position in the map
+			# bump can be "Bump" or "None", is  "Bump" if your Agent in the previous action had 
+			# slammed against a wall
+
+        self.program = program
+```
+[Wiki - Agent](https://github.com/sfcoding-school/AIVacuum/wiki/Creating-your-Agent)
 
 ## Contributing
 
@@ -44,6 +76,9 @@ University of Perugia, Dept. of Maths and Computer Science, AI 2013-2014:
 * Parcus Robert (student)
 * Tracolli Mirco (student, first creation)
 * to complete...
+
+University of Perugia, Dept. of Maths and Computer Science, AI 2014-2015: 
+* Ulisse
 
 ## License
 Creative Common BY-NC-SA: Share Alike, Non Commercial, give Attribution for the credits to the original authors: http://creativecommons.org/licenses/by-nc-sa/4.0/

@@ -1,7 +1,7 @@
+# -*- coding: latin-1 -*-
 '''
 aima-ui project
 =============
-
 This is just a graphic user interface to test
 agents for an AI college course.
 '''
@@ -52,7 +52,7 @@ def gen_popup(type_, text, dismiss=True):
     content = Button(text='Dismiss', size_hint=(1, .3))
     popup_layout.add_widget(Label(text=text))
     popup = Popup(title=type_,
-                  content=popup_layout)
+                  content=popup_layout, size_hint=(None, None), size=(300, 200))
     if dismiss:
         popup_layout.add_widget(content)
         content.bind(on_press=popup.dismiss)
@@ -60,10 +60,9 @@ def gen_popup(type_, text, dismiss=True):
 
 
 class AimaUI(App):
-
     """Class to manage aima agents and environments."""
 
-    def __init__(self):
+    def __init__(self, argAgent=None, argMap=None):
         """Initialize the user interface."""
         App.__init__(self)
         self.scoreA = 0
@@ -81,6 +80,12 @@ class AimaUI(App):
         self.env = None
         self.counter_steps = 0
         self.initialized = False
+
+        self.argAgent = argAgent
+        self.argMap = argMap
+
+        self.agentA_spinner = False
+        self.maps_spinner = False
 
     def __initialize_env(self):
         """Initialize aima environment."""
@@ -105,6 +110,8 @@ class AimaUI(App):
             else:
                 self.agentBImg = Image(source=self.agentBImgDef)
             self.env.add_thing(agent_B, location=self.env.start_from)
+        print(self.env.string)
+        self.myWid.set_env(self.env)
 
     def get_scores(self):
         """Get agents' scores."""
@@ -178,16 +185,24 @@ class AimaUI(App):
                               size=(tile_x, tile_y))
 
     def load_env(self, labels, wid, *largs):
-        """Load and prepare the environment."""
+        """Load and prepare the environment with my Agent"""
         self.running = False
         self.counter_steps = 0
-        if self.map is None or self.map == "Maps":
-            gen_popup("Error!", "No map selected...").open()
-            return
-        elif self.agentA not in ALL_AGENTS and\
-                self.agentB not in ALL_AGENTS:
-            gen_popup("Error!", "You must choose at least one agent...").open()
-            return
+
+        if self.argMap is not None and self.map is None or self.map == "Maps":
+                self.map = self.maps_spinner.text = self.argMap
+        else:
+            if self.map is None or self.map == "Maps":
+                gen_popup("Error!", "No map selected...").open()
+                return
+
+        if self.argAgent is not None and self.agentA not in ALL_AGENTS:
+            self.agentA = self.agentA_spinner.text = self.argAgent
+        else:
+            if self.agentA not in ALL_AGENTS and self.agentB not in ALL_AGENTS:
+                gen_popup("Error!", "You must choose at least one agent...").open()
+                return
+
         self.__initialize_env()
         self.initialized = True
         self.update_canvas(labels, wid)
@@ -321,6 +336,7 @@ class AimaUI(App):
     def select_map(self, spinner, text):
         self.map = text
 
+    # serve per ridimensionare a mano la finestra quando è già aperta
     def on_resize(self, width, eight, test):
         if self.initialized:
             Clock.schedule_once(
@@ -330,6 +346,8 @@ class AimaUI(App):
         """Build the user interface."""
 
         wid = Widget()
+        self.myWid = MyWidget()
+        wid.add_widget(self.myWid)
 
         self.counter = Label(text="0")
         labelA = Label(text=self.get_scores()[0])
@@ -338,7 +356,7 @@ class AimaUI(App):
         self.labels = labels
         self.wid = wid
 
-        agentA_spinner = Spinner(
+        self.agentA_spinner = Spinner(
             text='Agent A',
             text_size=(95, None),
             haligh="center",
@@ -357,7 +375,7 @@ class AimaUI(App):
             size=(100, 44)
         )
 
-        maps_spinner = Spinner(
+        self.maps_spinner = Spinner(
             text='Maps',
             text_size=(95, None),
             shorten=True,
@@ -365,9 +383,9 @@ class AimaUI(App):
             size=(100, 44)
         )
 
-        agentA_spinner.bind(text=self.select_agent_A)
+        self.agentA_spinner.bind(text=self.select_agent_A)
         agentB_spinner.bind(text=self.select_agent_B)
-        maps_spinner.bind(text=self.select_map)
+        self.maps_spinner.bind(text=self.select_map)
 
         btn_load = Button(text='Load',
                           on_press=partial(self.load_env, labels, wid))
@@ -393,8 +411,8 @@ class AimaUI(App):
 
         self.partial_reset = partial(self.reset_all,
                                      labels,
-                                     (agentA_spinner,
-                                      agentB_spinner, maps_spinner),
+                                     (self.agentA_spinner,
+                                      agentB_spinner, self.maps_spinner),
                                      wid)
 
         btn_reset = Button(text='Reset',
@@ -412,11 +430,11 @@ class AimaUI(App):
         action_layout.add_widget(btn_reset)
 
         agents_layout = BoxLayout(size_hint=(1, None), height=50)
-        agents_layout.add_widget(agentA_spinner)
+        agents_layout.add_widget(self.agentA_spinner)
         agents_layout.add_widget(labelA)
         agents_layout.add_widget(agentB_spinner)
         agents_layout.add_widget(labelB)
-        agents_layout.add_widget(maps_spinner)
+        agents_layout.add_widget(self.maps_spinner)
 
         root = BoxLayout(orientation='vertical')
         root.add_widget(wid)
@@ -425,5 +443,22 @@ class AimaUI(App):
 
         return root
 
-if __name__ == '__main__':
-    AimaUI().run()
+
+class MyWidget(Widget):
+
+    def __init__(self):
+        super(MyWidget, self).__init__()
+        self.env = None
+
+    def set_env(self, env):
+        self.env = env
+
+    def save_map(self):
+        if self.env is not None and hasattr(self.env, "string"):
+            with open("aima/saved_map/map.txt", "w") as fsm:
+                fsm.write(self.env.string)
+
+    def on_touch_down(self, touch):
+        super(MyWidget, self).on_touch_down(touch)
+        # qui popup
+        self.save_map()
