@@ -7,7 +7,7 @@ An environment to test a vacuum agent, created for the university project of Pro
 
 You must have [kivy](http://kivy.org/#home) installed on your system.
 
-[**Installation**](https://github.com/sfcoding-school/AIVacuum/wiki/Install-Kivy)
+[**Installation**](https://github.com/sfcoding-school/AI-Project-VacuumEnvironment/wiki/Install-Kivy)
 
 ## Run the application on Linux
 
@@ -48,7 +48,7 @@ class yourAgentNameClass(Agent): # note that your agent name that must finish wi
 
         self.program = program
 ```
-[Wiki - Agent](https://github.com/sfcoding-school/AIVacuum/wiki/Creating-your-Agent)
+[Wiki - Agent](https://github.com/sfcoding-school/AI-Project-VacuumEnvironment/wiki/Creating-your-Agent)
 
 ## Contributing
 
