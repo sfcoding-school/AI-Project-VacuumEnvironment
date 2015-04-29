@@ -5,7 +5,7 @@ An environment to test a vacuum agent, created for the university project of Pro
 
 [**Wiki - Installation**](https://github.com/sfcoding-school/AI-Project-VacuumEnvironment/wiki/Install-Kivy)
 
-# Run the application on Linux
+#### Run the application on Linux
 
 If you have installed all the dependencies, you can run the program with:
 ```bash
