@@ -110,7 +110,6 @@ class AimaUI(App):
             else:
                 self.agentBImg = Image(source=self.agentBImgDef)
             self.env.add_thing(agent_B, location=self.env.start_from)
-        print(self.env.string)
         self.myWid.set_env(self.env)
 
     def get_scores(self):
