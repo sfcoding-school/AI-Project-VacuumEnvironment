@@ -20,35 +20,7 @@ or, if you want to start a specific agent in a specific map (very useful for tes
 python main.py ChosenAgent ChosenMap
 ```
 
-## Creating your Agent
-
-First, create a file in agent_dir folder, inside you'll have to write this code 
-
-```python
-from . agents import *
-
-class yourAgentNameClass(Agent): # note that your agent name that must finish with "Class"
-
-    def __init__(self):
-        Agent.__init__(self)
-
-        def program((status, bump)):
-
-        	# this is the method that you need to implement
-
-        	# this method should return a string (like "NoOp" or "Suck"), 
-        	# in the case that you do not put a return, 
-        	# the program return "None" as default, and this makes you lose points
-
-        	# every time this method runs you have a pair (status, bump)
-			# status is a string that can be "Clean" or "Dirty", depends on the state of your 
-			# actual Agent position in the map
-			# bump can be "Bump" or "None", is  "Bump" if your Agent in the previous action had 
-			# slammed against a wall
-
-        self.program = program
-```
-[Wiki - Agent](https://github.com/sfcoding-school/AI-Project-VacuumEnvironment/wiki/Creating-your-Agent)
+[** Wiki - Creating your Agent **](https://github.com/sfcoding-school/AI-Project-VacuumEnvironment/wiki/Creating-your-Agent)
 
 ## Contributing
 
