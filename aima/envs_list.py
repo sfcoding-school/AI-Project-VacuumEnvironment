@@ -248,6 +248,6 @@ ALL_MAPS = {
     "VacuumMap7": VacuumMap7,
     "VacuumMap8": VacuumMap8,
     "VacuumMap9": VacuumMap9,
-    "RandomMap": RandomMap
-    "savedMap" : savedMap
+    "RandomMap": RandomMap,
+    "savedMap": savedMap
 }
