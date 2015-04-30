@@ -22,6 +22,7 @@ from functools import partial
 from agents_dir.agents import *
 import agents_list
 import envs_list
+import time
 from os import path
 
 ALL_AGENTS = agents_list.ALL_AGENTS
@@ -452,12 +453,30 @@ class MyWidget(Widget):
     def set_env(self, env):
         self.env = env
 
-    def save_map(self):
+    def save_map(self, instance=None):
         if self.env is not None and hasattr(self.env, "string"):
-            with open("aima/saved_map/map.txt", "w") as fsm:
+            with open("aima/saved_map/map" + str(int(time.time())) + ".txt", "w") as fsm:
                 fsm.write(self.env.string)
+        if instance is not None:
+            self.popup.dismiss()
+
+    def popup_save(self):
+        popup_layout = BoxLayout(orientation='vertical')
+        popup_layout.add_widget(Label(text="Do you want to save this RandomMap?"))
+        self.popup = Popup(title="Save Map", content=popup_layout, size_hint=(None, None), size=(300, 200))
+
+        btn_layout = BoxLayout(size_hint=(1, None), height=50)
+
+        btn1 = Button(text='Yes', size_hint=(1, .3))
+        btn2 = Button(text='No', size_hint=(1, .3))
+        btn1.bind(on_press=self.save_map)
+        btn2.bind(on_press=self.popup.dismiss)
+        btn_layout.add_widget(btn1)
+        btn_layout.add_widget(btn2)
+
+        popup_layout.add_widget(btn_layout)
+        self.popup.open()
 
     def on_touch_down(self, touch):
         super(MyWidget, self).on_touch_down(touch)
-        # qui popup
-        self.save_map()
+        self.popup_save()
