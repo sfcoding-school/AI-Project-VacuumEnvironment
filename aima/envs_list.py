@@ -228,6 +228,14 @@ class RandomMap(VacuumEnvironment):
                     break
 
         self.start_from = (row, var)
+
+
+class savedMap(VacuumEnvironment):
+
+    def __init__(self):
+        super(savedMap, self).__init__(8, 8)
+        self.init_env(str('WWWWWWWW\nWWWDDWWW\nWDDDDDDW\nWDCCDDDW\nWWWDDWWW\nWWWWWWWW\nWWWWWWWW\nWWWWWWWW'))
+        self.start_from = (4, 4)
 #
 # All Maps TABLE
 ALL_MAPS = {
@@ -241,4 +249,5 @@ ALL_MAPS = {
     "VacuumMap8": VacuumMap8,
     "VacuumMap9": VacuumMap9,
     "RandomMap": RandomMap
+    "savedMap" : savedMap
 }
