@@ -246,8 +246,10 @@ class savedMap(VacuumEnvironment):
                 size1 = len(line)
             myString += line.strip() + str('\n')
             if var == -1:
+                print len(line)
                 for x in xrange(0, len(line)):
-                    if myString[x] == 'D':
+                    print
+                    if line[x] == 'D':
                         print "trovato punto"
                         var = x
                         row = size2
@@ -255,8 +257,7 @@ class savedMap(VacuumEnvironment):
 
         super(savedMap, self).__init__(size1, size2)
         self.init_env(myString)
-
-        self.start_from = (var, row)  # non trova da dove partire
+        self.start_from = (var, row)
 
 # All Maps TABLE
 ALL_MAPS = {
