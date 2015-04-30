@@ -94,7 +94,10 @@ class AimaUI(App):
             del self.env
             self.env = None
         if self.map is not None:
-            self.env = ALL_MAPS[self.map]()
+            if self.map.find("map") != -1:
+                self.env = ALL_MAPS[self.map](chosen=self.map)
+            else:
+                self.env = ALL_MAPS[self.map]()
         if self.agentA in ALL_AGENTS:
             agent_A = TraceAgent(ALL_AGENTS[self.agentA]())
             if agent_A.img is not None and check_img(agent_A.img):
@@ -111,6 +114,8 @@ class AimaUI(App):
             else:
                 self.agentBImg = Image(source=self.agentBImgDef)
             self.env.add_thing(agent_B, location=self.env.start_from)
+
+        # this need to save map
         self.myWid.set_env(self.env)
 
     def get_scores(self):

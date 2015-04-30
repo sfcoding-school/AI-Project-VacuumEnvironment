@@ -1,5 +1,8 @@
 from agents_dir.agents import *
 from random import randint, choice
+import inspect
+import importlib
+from os import path, walk
 
 __all__ = ["ALL_MAPS"]
 
@@ -232,11 +235,29 @@ class RandomMap(VacuumEnvironment):
 
 class savedMap(VacuumEnvironment):
 
-    def __init__(self):
-        super(savedMap, self).__init__(8, 8)
-        self.init_env(str('WWWWWWWW\nWWWDDWWW\nWDDDDDDW\nWDCCDDDW\nWWWDDWWW\nWWWWWWWW\nWWWWWWWW\nWWWWWWWW'))
-        self.start_from = (4, 4)
-#
+    def __init__(self, chosen=None):
+
+        f = open('aima/saved_map/' + chosen + '.txt', 'r')
+        myString = ''
+        size1 = size2 = 0
+        var = row = -1
+        for line in f:
+            if size1 == 0:
+                size1 = len(line)
+            myString += line.strip() + str('\n')
+            if var == -1:
+                for x in xrange(0, len(line)):
+                    if myString[x] == 'D':
+                        print "trovato punto"
+                        var = x
+                        row = size2
+            size2 += 1
+
+        super(savedMap, self).__init__(size1, size2)
+        self.init_env(myString)
+
+        self.start_from = (var, row)  # non trova da dove partire
+
 # All Maps TABLE
 ALL_MAPS = {
     "VacuumMap1": VacuumMap1,
@@ -248,6 +269,12 @@ ALL_MAPS = {
     "VacuumMap7": VacuumMap7,
     "VacuumMap8": VacuumMap8,
     "VacuumMap9": VacuumMap9,
-    "RandomMap": RandomMap,
-    "savedMap": savedMap
+    "RandomMap": RandomMap
 }
+
+# ALL_MAPS["test"] = savedMap
+
+for root, dirs, files in walk("aima/saved_map"):
+    for file_ in files:
+        name, ext = path.splitext(file_)
+        ALL_MAPS[file_.split('.txt')[0]] = savedMap
