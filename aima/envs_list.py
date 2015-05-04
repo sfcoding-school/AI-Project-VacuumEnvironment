@@ -1,7 +1,5 @@
 from agents_dir.agents import *
 from random import randint, choice
-import inspect
-import importlib
 from os import path, walk
 
 __all__ = ["ALL_MAPS"]

@@ -28,6 +28,17 @@ from os import path
 ALL_AGENTS = agents_list.ALL_AGENTS
 ALL_MAPS = envs_list.ALL_MAPS
 
+bool_saved_map = False
+
+
+def get_boolSavedMap():
+    return bool_saved_map
+
+
+def change_boolSavedMap(var):
+    global bool_saved_map
+    bool_saved_map = var
+
 
 def check_img(img_name):
     """Check if the image is in img dir of the agents."""
@@ -193,6 +204,7 @@ class AimaUI(App):
         """Load and prepare the environment with my Agent"""
         self.running = False
         self.counter_steps = 0
+        change_boolSavedMap(False)
 
         if self.argMap is not None and self.map is None or self.map == "Maps":
                 self.map = self.maps_spinner.text = self.argMap
@@ -460,6 +472,7 @@ class MyWidget(Widget):
 
     def save_map(self, instance=None):
         if self.env is not None and hasattr(self.env, "string"):
+            change_boolSavedMap(True)
             with open("aima/saved_map/map" + str(int(time.time())) + ".txt", "w") as fsm:
                 fsm.write(self.env.string)
         if instance is not None:
@@ -484,4 +497,5 @@ class MyWidget(Widget):
 
     def on_touch_down(self, touch):
         super(MyWidget, self).on_touch_down(touch)
-        self.popup_save()
+        if get_boolSavedMap() is not True:
+            self.popup_save()
